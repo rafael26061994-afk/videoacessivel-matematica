@@ -6,8 +6,8 @@
     --background-color: #f0f8ff; /* Fundo azul claro, suave */
     --text-color: #333;
     --light-text-color: #666;
-    --border-radius: 12px;
-    --font-size-base: 18px;
+    --border-radius: 12px; /* Cantos mais arredondados */
+    --font-size-base: 18px; /* Grande por padrão para leitura fácil */
     --max-width: 1000px;
     --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     --card-background: #ffffff;
