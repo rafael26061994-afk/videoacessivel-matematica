@@ -1,78 +1,351 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VideoAcessível - Transcrição e Libras</title>
-    <meta name="description" content="Site educacional acessível para transcrição automática de vídeo e tradução em Libras.">
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#007bff">
-    <script src="https://vlibras.gov.br/widget/loader.js"></script>
-</head>
-<body aria-label="Conteúdo principal da aplicação.">
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
-    </div>
+/* RESET BÁSICO E VARIAVEIS */
+:root {
+    --primary-color: #007bff; /* Azul vibrante, associado à comunicação */
+    --primary-dark: #0056b3; /* Azul mais escuro para hover */
+    --secondary-color: #ffc107; /* Amarelo/Laranja para destaque e energia */
+    --background-color: #f0f8ff; /* Fundo azul claro, suave */
+    --text-color: #333;
+    --light-text-color: #666;
+    --border-radius: 12px; /* Cantos mais arredondados */
+    --font-size-base: 18px; /* Grande por padrão para leitura fácil */
+    --max-width: 1000px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave para profundidade */
+    --card-background: #ffffff; /* Fundo branco para seções */
+}
 
-    <header>
-        <h1>VideoAcessível</h1>
-        <p>Transcrição e Tradução em Libras para Conteúdo Educacional</p>
-    </header>
+body {
+    font-family: 'Open Sans', 'Arial', sans-serif; /* Fonte mais moderna e legível */
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7; /* Espaçamento de linha maior para melhor leitura */
+    font-size: var(--font-size-base);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+}
 
-    <main>
-        <section class="accessibility-controls" aria-label="Controles de acessibilidade">
-            <button id="toggle-contrast" aria-label="Alternar modo de Alto Contraste" title="Alto Contraste (Atalho: C)">Alto Contraste</button>
-            <button id="increase-font" aria-label="Aumentar Tamanho da Fonte" title="Aumentar Fonte (Atalho: +)">A+</button>
-            <button id="decrease-font" aria-label="Diminuir Tamanho da Fonte" title="Diminuir Fonte (Atalho: -)">A-</button>
-        </section>
+main {
+    max-width: var(--max-width);
+    margin: 30px auto; /* Mais espaçamento */
+    padding: 0 25px;
+}
 
-        <section id="tutorial" class="tutorial-section">
-            <h2>Tutorial: Como Usar</h2>
-            <ol>
-                <li>Clique ou **arraste** um arquivo de vídeo (MP4, WEBM, etc.) para a área acima.</li>
-                <li>Aguarde o carregamento e, em seguida, o processamento da **transcrição** (O tempo varia).</li>
-                <li>O vídeo e o texto da transcrição aparecerão abaixo.</li>
-                <li>Use o botão **"Ver em Libras"** para traduzir com o VLibras.</li>
-                <li>Use os atalhos: **C** (Contraste), **+** (Aumentar Fonte), **-** (Diminuir Fonte).</li>
-            </ol>
-            <div class="video-container tutorial-video">
-                <p>⚠️ **Placeholder:** Coloque aqui um vídeo tutorial em Libras sobre como usar a aplicação. (Por exemplo, um `iframe` ou elemento `<video>`)</p>
-            </div>
-        </section>
+h1, h2, h3 {
+    color: var(--primary-dark);
+    font-weight: bold;
+    margin-bottom: 15px;
+}
 
-        <section id="upload-area" class="upload-area" role="group" aria-labelledby="upload-title">
-            <h2 id="upload-title">Arraste e Solte seu Vídeo Aqui</h2>
-            <p>ou</p>
-            <input type="file" id="video-file-input" accept="video/*" aria-label="Selecione um arquivo de vídeo">
-            <label for="video-file-input" class="button">Selecionar Vídeo</label>
-            <p id="feedback-message" aria-live="polite" role="status">Aguardando arquivo.</p>
-        </section>
+header {
+    background-color: var(--primary-color);
+    background-image: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); /* Gradiente azul */
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px;
+}
 
-        <section id="content-area" class="content-area hidden">
-            <div class="video-container">
-                <video id="user-video" controls autoplay muted aria-label="Vídeo enviado pelo usuário"></video>
-            </div>
+header h1 {
+    color: white;
+    font-size: 2.8em;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
 
-            <div class="action-buttons">
-                <button id="vlibras-button" class="button primary hidden" aria-label="Traduzir Transcrição para Libras (VLibras)">Ver em Libras</button>
-                <button id="download-button" class="button" aria-label="Baixar Transcrição como arquivo de texto" title="Baixar Transcrição">Baixar Transcrição</button>
-            </div>
+header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
 
-            <h2>Transcrição Automática</h2>
-            <div id="transcription-output" class="transcription-box" aria-live="polite" aria-atomic="true" tabindex="0">
-                <p>Carregando transcrição...</p>
-                </div>
-        </section>
-    </main>
+section {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px;
+}
 
-    <footer>
-        <p>Projeto para inclusão e acessibilidade. Nenhuma informação de vídeo ou transcrição é armazenada no servidor para garantir a privacidade.</p>
-    </footer>
+/* ACESSIBILIDADE E CONTROLES */
 
-    <script src="script.js"></script>
-</body>
-</html>
+/* Modo Alto Contraste */
+body.high-contrast {
+    --background-color: #000;
+    --text-color: #fff;
+    --primary-color: #ffff00; /* Amarelo neon */
+    --primary-dark: #ccff00; /* Verde neon */
+    --secondary-color: #00ffff; /* Ciano neon */
+    --light-text-color: #ccc;
+    --card-background: #111;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+.high-contrast button, .high-contrast .button {
+    background-color: var(--primary-color) !important;
+    color: #000 !important;
+    border: 3px solid #fff !important;
+    box-shadow: 0 0 10px var(--primary-color) !important; /* Brilho neon */
+}
+.high-contrast .upload-area {
+    border: 3px dashed var(--primary-color);
+    background-color: #222;
+}
+.high-contrast .transcription-box, .high-contrast .video-container {
+    border: 3px solid var(--primary-color);
+    background-color: #000;
+}
+.high-contrast section {
+    background-color: var(--card-background);
+    box-shadow: 0 0 8px var(--primary-color);
+}
+
+/* Controles de Fonte */
+.accessibility-controls {
+    display: flex;
+    flex-wrap: wrap; /* Para quebrar linha em telas pequenas */
+    gap: 15px;
+    margin-bottom: 30px;
+    background-color: var(--card-background);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    justify-content: center;
+}
+
+/* BOTÕES GERAIS */
+button, .button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px; /* Mais arredondado, como um gesto */
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    transition: all 0.3s ease, transform 0.1s;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
+    position: relative;
+    overflow: hidden; /* Para o efeito de hover */
+}
+
+button:hover, .button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+button:focus, .button:focus {
+    outline: 4px solid var(--secondary-color); /* Contorno amarelo para foco */
+    outline-offset: 3px;
+}
+
+/* Efeito de onda nos botões */
+button::after, .button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1) translate(-50%, -50%);
+    transition: transform 0.5s, opacity 0.5s;
+}
+button:hover::after, .button:hover::after {
+    transform: scale(20) translate(-50%, -50%);
+    opacity: 1;
+}
+
+.button.primary {
+    background-color: var(--secondary-color);
+    color: var(--text-color); /* Texto escuro em botões amarelos */
+}
+.button.primary:hover {
+    background-color: #e0a800; /* Tom mais escuro para hover */
+}
+
+/* Upload Area */
+.upload-area {
+    text-align: center;
+    padding: 60px 20px; /* Mais padding */
+    border: 3px dashed var(--primary-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 40px;
+    transition: background-color 0.3s, border-color 0.3s;
+    background-color: var(--card-background);
+}
+
+.upload-area.dragover {
+    background-color: #e6f0ff; /* Azul claro ao arrastar */
+    border-color: var(--secondary-color); /* Borda amarela */
+}
+
+.upload-area h2 {
+    font-size: 2em;
+    color: var(--primary-dark);
+}
+
+.upload-area .subtitle-upload {
+    font-size: 1.1em;
+    color: var(--light-text-color);
+    margin: 15px 0;
+}
+
+#video-file-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.button-upload {
+    margin-top: 20px;
+    background-image: linear-gradient(45deg, var(--secondary-color) 0%, #ffeb3b 100%);
+    color: var(--text-color);
+}
+.button-upload:hover {
+    background-image: linear-gradient(45deg, #e0a800 0%, #ffd700 100%);
+}
+
+
+/* CONTEÚDO (VÍDEO E TRANSCRIÇÃO) */
+.content-area.hidden {
+    display: none;
+}
+
+.video-container {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 25px;
+    background-color: #000; /* Fundo escuro para vídeo */
+    border-radius: var(--border-radius);
+    overflow: hidden; /* Garante que o vídeo respeite o border-radius */
+    box-shadow: var(--box-shadow);
+}
+
+#user-video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    justify-content: center;
+}
+.action-buttons button {
+    flex-grow: 1; /* Faz os botões crescerem para preencher o espaço */
+    min-width: 200px; /* Garante um tamanho mínimo */
+}
+
+
+.transcription-box {
+    background-color: var(--card-background);
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    min-height: 180px; /* Um pouco maior */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 1.1em; /* Transcrição um pouco maior */
+    box-shadow: var(--box-shadow);
+}
+.transcription-box p {
+    margin: 0;
+}
+
+/* TUTORIAL */
+.tutorial-section ol {
+    list-style: none; /* Remove marcadores padrão */
+    padding: 0;
+    margin-bottom: 20px;
+}
+.tutorial-section li {
+    background-color: #e9f5ff; /* Fundo azul claro para cada item */
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border-left: 5px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.05em;
+    color: var(--text-color);
+}
+.tutorial-section .video-container {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    color: var(--light-text-color);
+    font-style: italic;
+    margin-top: 25px;
+}
+
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 25px;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 50px;
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    background-color: var(--card-background);
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* UTILITÁRIOS */
+.hidden {
+    display: none !important;
+}
+
+/* RESPONSIVIDADE (Celulares) */
+@media (max-width: 768px) {
+    :root {
+        --font-size-base: 16px;
+    }
+    main {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+    header h1 {
+        font-size: 2.2em;
+    }
+    header p {
+        font-size: 1em;
+    }
+    .accessibility-controls, .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .accessibility-controls button, .action-buttons button, .action-buttons .button {
+        width: 100%;
+        padding: 15px;
+    }
+    section {
+        padding: 20px;
+    }
+    .upload-area {
+        padding: 40px 15px;
+    }
+    .upload-area h2 {
+        font-size: 1.6em;
+    }
+    .transcription-box {
+        padding: 15px;
+    }
+}

@@ -7,8 +7,7 @@
     <meta name="description" content="Site educacional acessível para transcrição automática de vídeo e tradução em Libras.">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#007bff">
-    <script src="https://vlibras.gov.br/widget/loader.js"></script>
+    <meta name="theme-color" content="#0056b3"> <script src="https://vlibras.gov.br/widget/loader.js"></script>
 </head>
 <body aria-label="Conteúdo principal da aplicação.">
     <div vw class="enabled">
@@ -20,7 +19,7 @@
 
     <header>
         <h1>VideoAcessível</h1>
-        <p>Transcrição e Tradução em Libras para Conteúdo Educacional</p>
+        <p>A ponte para o conhecimento em Matemática e muito mais!</p>
     </header>
 
     <main>
@@ -33,7 +32,7 @@
         <section id="tutorial" class="tutorial-section">
             <h2>Tutorial: Como Usar</h2>
             <ol>
-                <li>Clique ou **arraste** um arquivo de vídeo (MP4, WEBM, etc.) para a área acima.</li>
+                <li>Clique ou **arraste** um arquivo de vídeo (MP4, WEBM, etc.) para a área indicada.</li>
                 <li>Aguarde o carregamento e, em seguida, o processamento da **transcrição** (O tempo varia).</li>
                 <li>O vídeo e o texto da transcrição aparecerão abaixo.</li>
                 <li>Use o botão **"Ver em Libras"** para traduzir com o VLibras.</li>
@@ -46,9 +45,9 @@
 
         <section id="upload-area" class="upload-area" role="group" aria-labelledby="upload-title">
             <h2 id="upload-title">Arraste e Solte seu Vídeo Aqui</h2>
-            <p>ou</p>
+            <p class="subtitle-upload">ou</p>
             <input type="file" id="video-file-input" accept="video/*" aria-label="Selecione um arquivo de vídeo">
-            <label for="video-file-input" class="button">Selecionar Vídeo</label>
+            <label for="video-file-input" class="button button-upload">Selecionar Vídeo</label>
             <p id="feedback-message" aria-live="polite" role="status">Aguardando arquivo.</p>
         </section>
 
@@ -65,7 +64,7 @@
             <h2>Transcrição Automática</h2>
             <div id="transcription-output" class="transcription-box" aria-live="polite" aria-atomic="true" tabindex="0">
                 <p>Carregando transcrição...</p>
-                </div>
+            </div>
         </section>
     </main>
 
