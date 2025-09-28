@@ -1,79 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VideoAcessível - Transcrição e Libras</title>
-    <meta name="description" content="Site educacional acessível para transcrição automática de vídeo e tradução em Libras.">
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0056b3">
-    <script src="https://vlibras.gov.br/widget/loader.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VideoAcessível - Transcrição e Libras</title>
+  <meta name="description" content="Site educacional acessível para transcrição automática de vídeo e tradução em Libras.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0056b3">
 </head>
 <body aria-label="Conteúdo principal da aplicação.">
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
+  <!-- VLibras Widget -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
     </div>
-    
-    <header>
-        <h1>VideoAcessível</h1>
-        <p>A ponte para o conhecimento em Matemática e muito mais!</p>
-    </header>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
 
-    <main>
-        <section class="accessibility-controls" aria-label="Controles de acessibilidade">
-            <button id="toggle-contrast" aria-label="Alternar modo de Alto Contraste" title="Alto Contraste (Atalho: C)">Alto Contraste</button>
-            <button id="increase-font" aria-label="Aumentar Tamanho da Fonte" title="Aumentar Fonte (Atalho: +)">A+</button>
-            <button id="decrease-font" aria-label="Diminuir Tamanho da Fonte" title="Diminuir Fonte (Atalho: -)">A-</button>
-        </section>
+  <header>
+    <h1>VideoAcessível</h1>
+    <p>A ponte para o conhecimento em Matemática e muito mais!</p>
+  </header>
 
-        <section id="tutorial" class="tutorial-section">
-            <h2>Tutorial: Como Usar</h2>
-            <ol>
-                <li>Clique ou **arraste** um arquivo de vídeo (MP4, WEBM, etc.) para a área indicada.</li>
-                <li>Aguarde o carregamento e o processamento da **transcrição** (necessita de um servidor).</li>
-                <li>O vídeo e o texto da transcrição aparecerão abaixo.</li>
-                <li>Use o botão **"Ver em Libras"** para indicar que o texto está pronto para tradução.</li>
-                <li>**Clique no avatar do VLibras (bonequinho) no canto** para traduzir o conteúdo.</li>
-                <li>Use os atalhos: **C** (Contraste), **+** (Aumentar Fonte), **-** (Diminuir Fonte).</li>
-            </ol>
-            <div class="video-container tutorial-video">
-                <p>⚠️ **Placeholder:** Coloque aqui um vídeo tutorial em Libras sobre como usar a aplicação.</p>
-            </div>
-        </section>
+  <main>
+    <!-- Controles de acessibilidade -->
+    <section class="accessibility-controls" aria-label="Controles de acessibilidade">
+      <button id="toggle-contrast" aria-label="Alternar modo de Alto Contraste" title="Alto Contraste (Atalho: C)">Alto Contraste</button>
+      <button id="increase-font" aria-label="Aumentar Tamanho da Fonte" title="Aumentar Fonte (Atalho: +)">A+</button>
+      <button id="decrease-font" aria-label="Diminuir Tamanho da Fonte" title="Diminuir Fonte (Atalho: -)">A-</button>
+    </section>
 
-        <section id="upload-area" class="upload-area" role="group" aria-labelledby="upload-title">
-            <h2 id="upload-title">Arraste e Solte seu Vídeo Aqui</h2>
-            <p class="subtitle-upload">ou</p>
-            <input type="file" id="video-file-input" accept="video/*" aria-label="Selecione um arquivo de vídeo">
-            <label for="video-file-input" class="button button-upload">Selecionar Vídeo</label>
-            <p id="feedback-message" aria-live="polite" role="status">Aguardando arquivo.</p>
-        </section>
+    <!-- Tutorial -->
+    <section id="tutorial" class="tutorial-section">
+      <h2>Tutorial: Como Usar</h2>
+      <ol>
+        <li>Clique ou <strong>arraste</strong> um arquivo de vídeo (MP4, WEBM, etc.) para a área indicada.</li>
+        <li>Aguarde a transcrição (simulada) <strong>ou</strong> use o botão de fala 🎤 para transcrever sua voz.</li>
+        <li>O vídeo e o texto da transcrição aparecerão abaixo.</li>
+        <li>Use o botão <strong>"Ver em Libras"</strong> ou clique no <strong>avatar do VLibras (bonequinho)</strong> para traduzir.</li>
+        <li>Atalhos: <strong>C</strong> (Contraste), <strong>+</strong> (Fonte maior), <strong>-</strong> (Fonte menor).</li>
+      </ol>
+      <div class="video-container tutorial-video">
+        <p>⚠️ <strong>Placeholder:</strong> Coloque aqui um vídeo tutorial em Libras sobre como usar a aplicação.</p>
+      </div>
+    </section>
 
-        <section id="content-area" class="content-area hidden">
-            <div class="video-container">
-                <video id="user-video" controls autoplay muted aria-label="Vídeo enviado pelo usuário"></video>
-            </div>
+    <!-- Upload -->
+    <section id="upload-area" class="upload-area" role="group" aria-labelledby="upload-title">
+      <h2 id="upload-title">Arraste e Solte seu Vídeo Aqui</h2>
+      <p class="subtitle-upload">ou</p>
+      <input type="file" id="video-file-input" accept="video/*" aria-label="Selecione um arquivo de vídeo">
+      <label for="video-file-input" class="button button-upload">Selecionar Vídeo</label>
+      <p id="feedback-message" aria-live="polite" role="status">Aguardando arquivo.</p>
+    </section>
 
-            <div class="action-buttons">
-                <button id="vlibras-button" class="button primary hidden" aria-label="Traduzir Transcrição para Libras (VLibras)">Ver em Libras</button>
-                <button id="download-button" class="button" aria-label="Baixar Transcrição como arquivo de texto" title="Baixar Transcrição">Baixar Transcrição</button>
-            </div>
+    <!-- Área de conteúdo -->
+    <section id="content-area" class="content-area hidden">
+      <div class="video-container">
+        <video id="user-video" controls autoplay muted aria-label="Vídeo enviado pelo usuário"></video>
+      </div>
 
-            <h2>Transcrição Automática</h2>
-            <div id="transcription-output" class="transcription-box" aria-live="polite" aria-atomic="true" tabindex="0">
-                <p>Carregando transcrição...</p>
-                </div>
-        </section>
-    </main>
+      <div class="action-buttons">
+        <button id="vlibras-button" class="button primary hidden" aria-label="Traduzir Transcrição para Libras (VLibras)">Ver em Libras</button>
+        <button id="download-button" class="button" aria-label="Baixar Transcrição como arquivo de texto" title="Baixar Transcrição">Baixar Transcrição</button>
+      </div>
 
-    <footer>
-        <p>Projeto para inclusão e acessibilidade. Nenhuma informação de vídeo ou transcrição é armazenada no servidor para garantir a privacidade.</p>
-    </footer>
+      <h2>Transcrição Automática</h2>
+      <div id="transcription-output" class="transcription-box" aria-live="polite" aria-atomic="true" tabindex="0">
+        <p>Carregando transcrição...</p>
+      </div>
+    </section>
+  </main>
 
-    <script src="script.js"></script>
+  <footer>
+    <p>Projeto para inclusão e acessibilidade. Nenhuma informação de vídeo ou transcrição é armazenada no servidor para garantir a privacidade.</p>
+  </footer>
+
+  <!-- Script principal -->
+  <script src="script.js"></script>
 </body>
 </html>

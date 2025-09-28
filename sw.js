@@ -1,52 +1,39 @@
-const CACHE_NAME = 'videoacessivel-cache-v1';
+const CACHE_NAME = 'videoacessivel-cache-v2';
+
 const urlsToCache = [
-    './',
-    'index.html',
-    'style.css',
-    'script.js',
-    'manifest.json',
-    // Adicione URLs dos seus ícones aqui
-    'icons/icon-192x192.png',
-    'icons/icon-512x512.png'
+  './',
+  'index.html',
+  'style.css',
+  'script.js',
+  'manifest.json',
+  'offline.html',
+  'icons/icon-192x192.png',
+  'icons/icon-512x512.png'
 ];
 
-// Instalação: Abre o cache e armazena todos os arquivos necessários
+// Instalação
 self.addEventListener('install', event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => {
-                console.log('Cache aberto');
-                return cache.addAll(urlsToCache);
-            })
-    );
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+  );
+  self.skipWaiting();
 });
 
-// Busca: Intercepta requisições e serve do cache se disponível
-self.addEventListener('fetch', event => {
-    // Tenta obter do cache, se falhar, vai para a rede.
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                if (response) {
-                    return response;
-                }
-                return fetch(event.request);
-            })
-    );
-});
-
-// Ativação: Limpeza de caches antigos
+// Ativação
 self.addEventListener('activate', event => {
-    const cacheWhitelist = [CACHE_NAME];
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.map(cacheName => {
-                    if (cacheWhitelist.indexOf(cacheName) === -1) {
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        })
-    );
+  event.waitUntil(
+    caches.keys().then(names =>
+      Promise.all(names.map(name => name !== CACHE_NAME && caches.delete(name)))
+    )
+  );
+  self.clients.claim();
+});
+
+// Fetch
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request).catch(() => caches.match('offline.html'));
+    })
+  );
 });

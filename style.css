@@ -1,244 +1,269 @@
-/* RESET BÁSICO E VARIAVEIS */
-:root {
-    --primary-color: #007bff; /* Azul vibrante, associado à comunicação */
-    --primary-dark: #0056b3; /* Azul mais escuro para hover */
-    --secondary-color: #ffc107; /* Amarelo/Laranja para destaque e energia */
-    --background-color: #f0f8ff; /* Fundo azul claro, suave */
-    --text-color: #333;
-    --light-text-color: #666;
-    --border-radius: 12px; /* Cantos mais arredondados */
-    --font-size-base: 18px; /* Grande por padrão para leitura fácil */
-    --max-width: 1000px;
-    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    --card-background: #ffffff;
-}
-
+/* =========================
+   Estilos principais
+   ========================= */
 body {
-    font-family: 'Open Sans', 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.7;
-    font-size: var(--font-size-base);
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-}
-
-main {
-    max-width: var(--max-width);
-    margin: 30px auto;
-    padding: 0 25px;
-}
-
-h1, h2, h3 {
-    color: var(--primary-dark);
-    font-weight: bold;
-    margin-bottom: 15px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+  font-size: 18px;
 }
 
 header {
-    background-color: var(--primary-color);
-    background-image: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    color: white;
-    padding: 40px 20px;
-    text-align: center;
-    border-bottom-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    margin-bottom: 30px;
+  background: #0056b3;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
 }
 
 header h1 {
-    color: white;
-    font-size: 2.8em;
-    margin-bottom: 5px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  font-size: 2em;
 }
 
-section {
-    background-color: var(--card-background);
-    padding: 30px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    margin-bottom: 30px;
+header p {
+  margin: 5px 0 0;
 }
 
-/* Modo Alto Contraste */
-body.high-contrast {
-    --background-color: #000;
-    --text-color: #fff;
-    --primary-color: #ffff00;
-    --primary-dark: #ccff00;
-    --secondary-color: #00ffff;
-    --card-background: #111;
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-.high-contrast button, .high-contrast .button {
-    background-color: var(--primary-color) !important;
-    color: #000 !important;
-    border: 3px solid #fff !important;
-    box-shadow: 0 0 10px var(--primary-color) !important;
-}
-.high-contrast .upload-area {
-    border: 3px dashed var(--primary-color);
-    background-color: #222;
-}
-.high-contrast section {
-    background-color: var(--card-background);
-    box-shadow: 0 0 8px var(--primary-color);
+/* =========================
+   Contraste alto
+   ========================= */
+.high-contrast {
+  background: #000 !important;
+  color: #fff !important;
 }
 
-/* Controles de Fonte */
+.high-contrast header {
+  background: #000 !important;
+  color: #ff0 !important;
+}
+
+.high-contrast .button,
+.high-contrast #micBtn {
+  background: #000 !important;
+  color: #ff0 !important;
+  border: 2px solid #ff0 !important;
+}
+
+/* =========================
+   Controles de acessibilidade
+   ========================= */
 .accessibility-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 30px;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  background: #e0e0e0;
 }
 
-/* BOTÕES GERAIS */
-button, .button {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1.05em;
-    font-weight: 600;
-    transition: all 0.3s ease, transform 0.1s;
-    background-color: var(--primary-color);
-    color: white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    position: relative;
-    overflow: hidden;
+.accessibility-controls button {
+  padding: 8px 12px;
+  background: #0056b3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-button:hover, .button:hover {
-    background-color: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-button:focus, .button:focus {
-    outline: 4px solid var(--secondary-color);
-    outline-offset: 3px;
+.accessibility-controls button:hover {
+  background: #003d80;
 }
 
-.button.primary {
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-}
-.button.primary:hover {
-    background-color: #e0a800;
-}
-
-/* Upload Area */
+/* =========================
+   Área de upload
+   ========================= */
 .upload-area {
-    text-align: center;
-    padding: 60px 20px;
-    border: 3px dashed var(--primary-color);
-    border-radius: var(--border-radius);
-    transition: background-color 0.3s, border-color 0.3s;
+  border: 2px dashed #0056b3;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  background: #fff;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .upload-area.dragover {
-    background-color: #e6f0ff;
-    border-color: var(--secondary-color);
+  background: #eaf4ff;
+  border-color: #003d80;
 }
 
-#video-file-input {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+.upload-area input[type="file"] {
+  display: none;
 }
 
 .button-upload {
-    margin-top: 20px;
-    background-image: linear-gradient(45deg, var(--secondary-color) 0%, #ffeb3b 100%);
-    color: var(--text-color);
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 16px;
+  background-color: #0056b3;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
+
 .button-upload:hover {
-    background-image: linear-gradient(45deg, #e0a800 0%, #ffd700 100%);
+  background-color: #003d80;
 }
 
-/* Conteúdo */
+/* =========================
+   Conteúdo principal
+   ========================= */
+.content-area {
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
 .video-container {
-    width: 100%;
-    margin-bottom: 25px;
-    background-color: #000;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--box-shadow);
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-#user-video {
-    width: 100%;
-    height: auto;
-    display: block;
+video {
+  max-width: 100%;
+  border-radius: 10px;
 }
 
-.action-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 15px;
-    margin-bottom: 40px;
-    justify-content: center;
-}
-.action-buttons button {
-    flex-grow: 1;
-    min-width: 200px;
+/* =========================
+   Botões principais
+   ========================= */
+.button {
+  display: inline-block;
+  margin: 5px;
+  padding: 10px 16px;
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
+.button:hover {
+  background-color: #003d80;
+}
+
+.button:active {
+  background-color: #002b5c;
+}
+
+.button:focus {
+  outline: 3px solid #ffcc00;
+  outline-offset: 2px;
+}
+
+.button.primary {
+  background-color: #28a745;
+}
+
+.button.primary:hover {
+  background-color: #1e7e34;
+}
+
+/* =========================
+   Botão de Microfone 🎤
+   ========================= */
+#micBtn {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 10px 16px;
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#micBtn:hover {
+  background-color: #003d80;
+}
+
+#micBtn:active {
+  background-color: #002b5c;
+}
+
+#micBtn:focus {
+  outline: 3px solid #ffcc00;
+  outline-offset: 2px;
+}
+
+/* =========================
+   Transcrição
+   ========================= */
 .transcription-box {
-    background-color: var(--card-background);
-    padding: 25px;
-    border: 1px solid #e0e0e0;
-    border-radius: var(--border-radius);
-    min-height: 180px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    font-size: 1.1em;
-    box-shadow: var(--box-shadow);
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-size: 16px;
 }
 
-/* Tutorial */
-.tutorial-section li {
-    background-color: #e9f5ff;
-    margin-bottom: 10px;
-    padding: 15px 20px;
-    border-left: 5px solid var(--primary-color);
-    border-radius: 8px;
-    font-size: 1.05em;
+/* =========================
+   Tutorial
+   ========================= */
+.tutorial-section {
+  background: #fff;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 900px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* FOOTER */
+.tutorial-section h2 {
+  margin-top: 0;
+}
+
+.tutorial-section ol {
+  padding-left: 20px;
+}
+
+/* =========================
+   Rodapé
+   ========================= */
 footer {
-    text-align: center;
-    padding: 25px;
-    font-size: 0.9em;
-    color: var(--light-text-color);
-    background-color: var(--card-background);
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
 }
 
-/* RESPONSIVIDADE */
-@media (max-width: 768px) {
-    :root {
-        --font-size-base: 16px;
-    }
-    main {
-        padding: 0 15px;
-    }
-    .accessibility-controls, .action-buttons {
-        flex-direction: column;
-        gap: 10px;
-    }
-    .accessibility-controls button, .action-buttons button {
-        width: 100%;
-    }
+/* =========================
+   Estados utilitários
+   ========================= */
+.hidden {
+  display: none !important;
+}
+
+.feedback-info {
+  color: #0056b3;
+}
+
+.feedback-success {
+  color: #28a745;
+}
+
+.feedback-error {
+  color: #dc3545;
+}
+
+.feedback-loading {
+  color: #ff9900;
 }
