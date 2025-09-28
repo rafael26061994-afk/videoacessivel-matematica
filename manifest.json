@@ -1,22 +1,244 @@
-{
-    "name": "VideoAcessível",
-    "short_name": "VideoAcessível",
-    "description": "Transcrição e Tradução em Libras para Conteúdo Educacional",
-    "start_url": "./index.html",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#007bff",
-    "icons": [
-        {
-            "src": "icons/icon-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "icons/icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-        // Recomendado ter mais tamanhos
-    ]
+/* RESET BÁSICO E VARIAVEIS */
+:root {
+    --primary-color: #007bff; /* Azul vibrante, associado à comunicação */
+    --primary-dark: #0056b3; /* Azul mais escuro para hover */
+    --secondary-color: #ffc107; /* Amarelo/Laranja para destaque e energia */
+    --background-color: #f0f8ff; /* Fundo azul claro, suave */
+    --text-color: #333;
+    --light-text-color: #666;
+    --border-radius: 12px;
+    --font-size-base: 18px;
+    --max-width: 1000px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --card-background: #ffffff;
+}
+
+body {
+    font-family: 'Open Sans', 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    font-size: var(--font-size-base);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+main {
+    max-width: var(--max-width);
+    margin: 30px auto;
+    padding: 0 25px;
+}
+
+h1, h2, h3 {
+    color: var(--primary-dark);
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+header {
+    background-color: var(--primary-color);
+    background-image: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: white;
+    font-size: 2.8em;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+section {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px;
+}
+
+/* Modo Alto Contraste */
+body.high-contrast {
+    --background-color: #000;
+    --text-color: #fff;
+    --primary-color: #ffff00;
+    --primary-dark: #ccff00;
+    --secondary-color: #00ffff;
+    --card-background: #111;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+.high-contrast button, .high-contrast .button {
+    background-color: var(--primary-color) !important;
+    color: #000 !important;
+    border: 3px solid #fff !important;
+    box-shadow: 0 0 10px var(--primary-color) !important;
+}
+.high-contrast .upload-area {
+    border: 3px dashed var(--primary-color);
+    background-color: #222;
+}
+.high-contrast section {
+    background-color: var(--card-background);
+    box-shadow: 0 0 8px var(--primary-color);
+}
+
+/* Controles de Fonte */
+.accessibility-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+/* BOTÕES GERAIS */
+button, .button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    transition: all 0.3s ease, transform 0.1s;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover, .button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+button:focus, .button:focus {
+    outline: 4px solid var(--secondary-color);
+    outline-offset: 3px;
+}
+
+.button.primary {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+.button.primary:hover {
+    background-color: #e0a800;
+}
+
+/* Upload Area */
+.upload-area {
+    text-align: center;
+    padding: 60px 20px;
+    border: 3px dashed var(--primary-color);
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.upload-area.dragover {
+    background-color: #e6f0ff;
+    border-color: var(--secondary-color);
+}
+
+#video-file-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.button-upload {
+    margin-top: 20px;
+    background-image: linear-gradient(45deg, var(--secondary-color) 0%, #ffeb3b 100%);
+    color: var(--text-color);
+}
+.button-upload:hover {
+    background-image: linear-gradient(45deg, #e0a800 0%, #ffd700 100%);
+}
+
+/* Conteúdo */
+.video-container {
+    width: 100%;
+    margin-bottom: 25px;
+    background-color: #000;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+#user-video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    justify-content: center;
+}
+.action-buttons button {
+    flex-grow: 1;
+    min-width: 200px;
+}
+
+.transcription-box {
+    background-color: var(--card-background);
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    min-height: 180px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 1.1em;
+    box-shadow: var(--box-shadow);
+}
+
+/* Tutorial */
+.tutorial-section li {
+    background-color: #e9f5ff;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border-left: 5px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.05em;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 25px;
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    background-color: var(--card-background);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    :root {
+        --font-size-base: 16px;
+    }
+    main {
+        padding: 0 15px;
+    }
+    .accessibility-controls, .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .accessibility-controls button, .action-buttons button {
+        width: 100%;
+    }
 }

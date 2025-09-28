@@ -5,7 +5,9 @@ const urlsToCache = [
     'style.css',
     'script.js',
     'manifest.json',
-    // Adicione URLs dos seus ícones aqui, ex: 'icons/icon-192x192.png'
+    // Adicione URLs dos seus ícones aqui
+    'icons/icon-192x192.png',
+    'icons/icon-512x512.png'
 ];
 
 // Instalação: Abre o cache e armazena todos os arquivos necessários
@@ -25,11 +27,9 @@ self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request)
             .then(response => {
-                // Retorna o recurso do cache se encontrado
                 if (response) {
                     return response;
                 }
-                // Se não encontrado no cache, faz a requisição normal
                 return fetch(event.request);
             })
     );

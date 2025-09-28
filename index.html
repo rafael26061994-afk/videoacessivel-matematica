@@ -7,7 +7,8 @@
     <meta name="description" content="Site educacional acessível para transcrição automática de vídeo e tradução em Libras.">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0056b3"> <script src="https://vlibras.gov.br/widget/loader.js"></script>
+    <meta name="theme-color" content="#0056b3">
+    <script src="https://vlibras.gov.br/widget/loader.js"></script>
 </head>
 <body aria-label="Conteúdo principal da aplicação.">
     <div vw class="enabled">
@@ -16,7 +17,7 @@
             <div class="vw-plugin-top-wrapper"></div>
         </div>
     </div>
-
+    
     <header>
         <h1>VideoAcessível</h1>
         <p>A ponte para o conhecimento em Matemática e muito mais!</p>
@@ -30,16 +31,27 @@
         </section>
 
         <section id="tutorial" class="tutorial-section">
-            <h2>Tutorial: Como Usar</h2>
+            <h2>Tutorial: Como Usar o VideoAcessível</h2>
+            
+            <h3>Passo a Passo Escrito</h3>
             <ol>
-                <li>Clique ou **arraste** um arquivo de vídeo (MP4, WEBM, etc.) para a área indicada.</li>
-                <li>Aguarde o carregamento e, em seguida, o processamento da **transcrição** (O tempo varia).</li>
-                <li>O vídeo e o texto da transcrição aparecerão abaixo.</li>
-                <li>Use o botão **"Ver em Libras"** para traduzir com o VLibras.</li>
-                <li>Use os atalhos: **C** (Contraste), **+** (Aumentar Fonte), **-** (Diminuir Fonte).</li>
+                <li>**Carregue o Vídeo:** Clique no botão **"Selecionar Vídeo"** ou **arraste** o arquivo de vídeo desejado para a área em azul.</li>
+                <li>**Aguarde a Transcrição:** O site fará o upload e iniciará o processamento para transformar o áudio em texto (atualmente simulado). Uma mensagem de "Transcrição pronta!" aparecerá.</li>
+                <li>**Assista e Leia:** O vídeo aparecerá acima, e o texto da transcrição (com letras grandes) aparecerá logo abaixo para facilitar a leitura.</li>
+                <li>**Tradução em Libras:** Para traduzir o texto da transcrição (e todo o site), **clique no avatar do VLibras (o bonequinho)** que fica flutuando na tela. Em seguida, selecione o texto desejado.</li>
+                <li>**Controles Rápidos:** Use os botões acima (A+, A-, Alto Contraste) e os atalhos de teclado (**C**, **+**, **-**) para ajustar a acessibilidade da página.</li>
+                <li>**Salvar:** Clique em **"Baixar Transcrição"** para salvar o texto em um arquivo simples (`.txt`).</li>
             </ol>
+
+            <h3>Tutorial em Libras (Vídeo)</h3>
             <div class="video-container tutorial-video">
-                <p>⚠️ **Placeholder:** Coloque aqui um vídeo tutorial em Libras sobre como usar a aplicação. (Por exemplo, um `iframe` ou elemento `<video>`)</p>
+                
+                <p style="font-style: italic; color: #0056b3; padding: 20px; border: 2px dashed #007bff; border-radius: 8px;">
+                    <strong style="color: var(--primary-dark);">ÁREA DO VÍDEO TUTORIAL EM LIBRAS:</strong><br>
+                    Para oferecer o tutorial em Libras, **insira aqui o código do vídeo** que você gravar. <br>
+                    Exemplo: `<iframe>` de um vídeo hospedado no YouTube ou a tag `<video>` do HTML.
+                </p>
+                
             </div>
         </section>
 
